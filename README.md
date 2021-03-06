@@ -1,6 +1,12 @@
 # Stress Testing using Python
 
+### Preview 
 ![previw](preview.jpg)
+
+### Prequirements
+- [Python](https://www.python.org/)
+- [colorama](https://pypi.org/project/colorama/) python package
+- compiler for your language (C, C++, Java or Python)
 
 ### How to use ?
 - `create files inside Files according to your language and add them in hack.py`
@@ -11,7 +17,7 @@ files = [ # first file expected output
     './Files/wrong1.cpp',
 ]
 ```
-- `Generate testcase in testcase.cpp file`
+- `generate testcase in testcase.cpp file`
 - `update correct file in Files folder`
 - `update wrong file in Files folder`
 - `modify hack.py file according to number of user and files`
