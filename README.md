@@ -3,7 +3,7 @@
 [What is stress testing ?](https://ali-ibrahim137.github.io/competitive/programming/2020/08/23/Stress-Testing.html)
 
 ### Preview 👀
-![previw](preview.jpg)
+![preview](preview.png)
 
 ### Prequirements
 - [Python](https://www.python.org/)
@@ -24,6 +24,7 @@ files = [ # first file expected output
 - update wrong file in Files folder
 - modify `hack.py` file according to number of user and files
 - run `python hack.py`
+- after getting wrong answer chekout `wa.txt` file and `in.txt` file
 
 ### 😃 Bye
 ```c++
