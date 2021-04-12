@@ -11,7 +11,7 @@
 - compiler for your language (C, C++, Java or Python)
 
 ### How to use ? 🤔
-- create files inside Files according to your language and add them in `hack.py`
+- create files inside `Files` according to your language and add them in `hack.py`
 ```
 no_users = 2
 files = [ # first file expected output
@@ -26,10 +26,11 @@ files = [ # first file expected output
 - run `python hack.py`
 - after getting wrong answer chekout `wa.txt` file and `in.txt` file
 
-### 😃 Bye
+### Bye
+- testcase generator is written in c++, you can also use other language but make sure to modify `hack.py` accordingly.
 ```c++
 if(enjoy 🙃) {
-    ⭐️ giveStar();
+    giveStar(⭐️);
     Follow();
 }
 ```
