@@ -8,10 +8,10 @@
 ### Prequirements
 - [Python](https://www.python.org/)
 - [Colorama](https://pypi.org/project/colorama/) and [Subprocess](https://docs.python.org/3/library/subprocess.html) python package
-- compiler for your language (C, C++, Java or Python)
+- Compiler for your language (C, C++, Java or Python)
 
 ### How to use ? 🤔
-- create files inside `Files` according to your language and add them in `hack.py`
+- Create files inside `Files` according to your language and add them in `hack.py`
 ```
 no_users = 2
 files = [ # first file expected output
@@ -19,18 +19,13 @@ files = [ # first file expected output
     './Files/wrong1.cpp',
 ]
 ```
-- generate testcase in `testcase.cpp` file
-- update correct file in Files folder
-- update wrong file in Files folder
-- modify `hack.py` file according to number of user and files
-- run `python hack.py`
-- after getting wrong answer chekout `wa.txt` file and `in.txt` file
+- Generate testcase in `testcase.cpp` file
+- Update `./Files/correct.cpp` file
+- Update `./Files/wrong1.cpp` file
+- Modify `hack.py` file according to number of users and files
+- Run `python hack.py`
+- After getting wrong answer chekout `wa.txt` (contains input, actual output and correct output) file and `in.txt` (current input) file
 
 ### Bye
-- testcase generator is written in c++, you can also use other language but make sure to modify `hack.py` accordingly.
-```c++
-if(enjoy 🙃) {
-    giveStar(⭐️);
-    Follow();
-}
-```
+- Testcase generator is written in `c++`, you can also use other language but make sure to modify `hack.py` accordingly.
+- Give a star⭐️ & Follow ;)
