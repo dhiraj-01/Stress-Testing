@@ -8,9 +8,9 @@ const vector<string> s = {
 
 void testcase()
 {
-    ll a = rnd(2, 3);
-    ll b = rnd(2, 3);
-    w(a, b);
+    ll a = rnd(1, 10);
+    ll b = rnd(1, 10);
+    cout << a << " " << b << endl;
 }
 
 void printEdges(vector<pair<ll, ll>> &e, ll v, bool is_graph)
@@ -32,9 +32,9 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    ll t = rnd(1, 10);
-    t = 1;
-    // cout << t << endl;
+    ll t = rnd(1, 4);
+    // t = 1;
+    cout << t << endl;
     while(t--) {
         testcase();
     }

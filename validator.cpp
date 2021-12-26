@@ -8,13 +8,14 @@ int main()
 
     int tc = 1;
     cin >> tc;
-    assert(1 <= tc and tc <= 1e5);
+    assert(1 <= tc and tc <= 10);
 
     for(int i = 0; i < tc; i++)
     {
-        int x;
-        cin >> x;
+        int x, y;
+        cin >> x >> y;
         assert(x >= 1 and x <= 10);
+        assert(y >= 1 and y <= 10);
     }
     return 0;
 }

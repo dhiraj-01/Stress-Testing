@@ -1,21 +1,31 @@
 import subprocess
 import os, sys
 
-no_users = 2
-files = [ # first file Expected output
-    './Files/correct.cpp',
+correct_file = './Files/correct.cpp'
+
+# files to compare with `correct file` output
+files = [
     './Files/wrong1.cpp',
-    './Files/wrong2.cpp',
-    './Files/wrong3.cpp',
-    './Files/wrong4.cpp',
+    # './Files/wrong2.cpp',
+    # './Files/wrong3.cpp',
+    # './Files/wrong4.cpp',
 ]
 
 io_files = {
     "input_file" : "./Files/in.txt",
-    "wa_file": "./Files/wa.txt",
+    "output_file" : "./Files/out.txt",
     "testcase_file" : "./testcase.cpp",
-    "validator": "./validator.cpp",
+    "wa_file": "./Files/wa.txt",
+    "validator_file": "./validator.cpp",
 }
+
+# clear files
+with open(io_files["input_file"], "w") as file:
+    file.write("")
+with open(io_files["output_file"], "w") as file:
+    file.write("")
+with open(io_files["wa_file"], "w") as file:
+    file.write("")
 
 # compile cpp, c, java file
 def Compile(file_path):
@@ -33,7 +43,7 @@ def Compile(file_path):
     subprocess.run(cmd, check = True, shell = True)
     print('Compilation done')
 
-# Run file and return output
+# run(execute) file and return the output
 def Run(file_path, std_input = None):
     lang = file_path.split(".")[-1]
     if(lang == "cpp" or lang == "c"):
@@ -48,7 +58,7 @@ def Run(file_path, std_input = None):
     return subprocess.run(cmd, input = std_input, capture_output = True, shell = True, text = True, check = True)
 
 # remove extra spaces and new lines
-def format(out):
+def Format(out):
     out = out.split('\n')
     res = ""
     for o in out:
@@ -57,7 +67,7 @@ def format(out):
             res += o + "\n"
     return res.strip()
 
-# color text on terminal ----------------------------------------------------
+# color text on terminal 
 
 import colorama
 from colorama import Fore, Back, Style
@@ -93,72 +103,91 @@ def Print(*args, **kwargs):
 
 # compile test case file
 Compile(io_files["testcase_file"])
-# Compile(io_files["validator"])
+# Compile(io_files["validator_file"])
 
 # compile all java and c++ file
-for i in range(no_users):
-    Compile(files[i])
+Compile(correct_file)
+for f in files:
+    Compile(f)
 
-with open(io_files["wa_file"], "w") as file:
-    file.write("")
-
-print(f"\ntotal users : {no_users}")
+print()
 test_case = 1
 while(True):
     try:
         Print("yellow", f"Case # {test_case} : ", end = '')
 
         # generate test case
-        Input = Run(io_files["testcase_file"]).stdout.strip()
-        # print(f'\n{Input}')
+        std_input = Run(io_files["testcase_file"]).stdout.strip()
 
-        # uncomment for testcase validator
-        # Run(io_files["validator"], Input)
+        # testcase validator
+        # Run(io_files["validator_file"], std_input)
 
         # store all outputs
-        Outputs = []
-        for i in range(no_users):
-            Outputs.append(format(Run(files[i], Input).stdout))
+        std_output = Format(Run(correct_file, std_input).stdout)
+        outputs = []
+        for f in files:
+            outputs.append(Format(Run(f, std_input).stdout))
 
         # check
-        if(len(set(Outputs)) != 1):
+        ok = True
+        for out in outputs:
+            if out != std_output:
+                ok = False
+                break
 
+        if(not ok):
             Print("red", "Wrong Answer")
+
+            # print input & output
             Print("cyan", "Input")
-            print(Input)
+            print(std_input)
 
-            for i in range(no_users):
+            Print("cyan", "\nOutput")
+            print(std_output)
+
+            # print all outputs
+            for i in range(len(files)):
                 Print("cyan", f"\n{files[i]}")
-                print(Outputs[i])
+                print(outputs[i])
 
-            Print("yellow", "\nDiffrent files:")
-
-            for i in range(no_users):
-                if(Outputs[i] != Outputs[0]):
+            # print diffrent files
+            Print("yellow", "\nMismatched files")
+            for i in range(len(files)):
+                if(outputs[i] != std_output):
                     Print("cyan", files[i])
 
-            # store input in file
+            # store input & output
             with open(io_files["input_file"], "w") as file:
-                file.write(Input)
+                file.write(std_input)
 
-            if(no_users == 2):
-                Input += "\n\n# Participant\n" + Outputs[1]
-                Input += "\n\n# Expected\n" + Outputs[0]
-                Input += "\n\n" +  "-" * 50 + "\n"
+            with open(io_files["output_file"], "w") as file:
+                file.write(std_output)
+
+            # special log
+            if(len(files) == 1):
+                log = "# Testcase\n" + std_input
+                log += "\n\n# Participant\n" + outputs[0]
+                log += "\n\n# Expected\n" + std_output
+                log += "\n\n" +  "-" * 50 + "\n"
 
                 with open(io_files["wa_file"], "a") as file:
-                    file.write("# TestCase\n" + Input)
+                    file.write(log)
 
-            Print("purple", "\nBreak (0/1) : ", end = '')
+            Print("purple", "\nPress 1 to stop : ", end = '')
             brk = int(input())
             if(brk == 1):
                 break
         else:
             Print("green", "Accepted")
             if(test_case <= 5):
-                print(Input)
-                for out in Outputs:
-                    print('\n', out, sep = '')
+                print("Input")
+                print(std_input)
+                print("\nOutput")
+                print(std_output)
+                for i in range(len(files)):
+                    print(f"\n{files[i]}")
+                    print(outputs[i])
+
         test_case += 1
 
     except KeyboardInterrupt:
