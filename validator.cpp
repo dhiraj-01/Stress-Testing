@@ -14,7 +14,7 @@ int main()
     {
         int n, m;
         cin >> n >> m;
-        assert(n >= 1 and n <= 10);
+        assert(n >= 1 and n <= 5);
         assert(m >= 1 and m <= 10);
     }
     return 0;
