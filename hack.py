@@ -14,8 +14,8 @@ files = [
 io_files = {
     "input_file" : "./Files/in.txt",
     "output_file" : "./Files/out.txt",
-    "testcase_file" : "./testcase.cpp",
     "wa_file": "./Files/wa.txt",
+    "testcase_file" : "./testcase.cpp",
     "validator_file": "./validator.cpp",
 }
 

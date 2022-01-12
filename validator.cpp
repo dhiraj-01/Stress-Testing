@@ -12,10 +12,10 @@ int main()
 
     for(int i = 0; i < tc; i++)
     {
-        int x, y;
-        cin >> x >> y;
-        assert(x >= 1 and x <= 10);
-        assert(y >= 1 and y <= 10);
+        int n, m;
+        cin >> n >> m;
+        assert(n >= 1 and n <= 10);
+        assert(m >= 1 and m <= 10);
     }
     return 0;
 }

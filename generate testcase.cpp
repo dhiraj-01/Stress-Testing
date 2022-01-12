@@ -27,26 +27,36 @@ inline ll rnd(ll l = 0, ll r = 1E9)
 #define loop(...)           FORC(__VA_ARGS__)(__VA_ARGS__)
 #define rloop(...)          ROFC(__VA_ARGS__)(__VA_ARGS__)
 
+// write on stdout
 template <class... Args>
 void w(Args ... args) {
     ((cout << args << " "), ...);
     cout << '\n';
 }
 
-// 1d - array
-void genVec1(ll n = 5, ll lo = 1, ll hi = 10) {
+// vector
+void gvec(ll n = 5, ll lo = 1, ll hi = 10) {
     for(ll i = 0; i < n; i++) {
         cout << rnd(lo, hi) << " ";
     }
     cout << "\n";
 }
-// 2d - array
-void genVec2(ll n = 5, ll m = 5, ll lo = 1, ll hi = 10) {
+
+// permutation
+void gper(ll n = 5) {
+    vector<ll> v(n);
     for(ll i = 0; i < n; i++) {
-        genVec1(m, lo, hi);
+        v[i] = i + 1;
     }
+    shuffle(v.begin(), v.end(), rng);
+    for(ll x : v) {
+        cout << x << " ";
+    }
+    cout << "\n";
 }
-void genUnique(ll n = 5, ll lo = 1, ll hi = 10) {
+
+// set
+void gset(ll n = 5, ll lo = 1, ll hi = 10) {
     set<ll> s;
     while(s.size() != n) {
         s.insert(rnd(lo, hi));
@@ -58,8 +68,9 @@ void genUnique(ll n = 5, ll lo = 1, ll hi = 10) {
     }
     cout << "\n";
 }
+
 // string
-void genString(ll n = 5, string s = "01") {
+void gstr(ll n = 5, string s = "01") {
     for(ll i = 0; i < n; i++) {
         ll id = rnd(0, s.size() - 1);
         cout << s[id];
@@ -67,10 +78,10 @@ void genString(ll n = 5, string s = "01") {
     cout << "\n";
 }
 
-void shuffleEdges(vector<pair<ll, ll>> &e, ll v)
+void shuffle_edges(vector<pair<ll, ll>>& e, ll v)
 {
     vector<ll> p(v + 1);
-    for(int i = 0; i <= v; i++) {
+    for(int i = 1; i <= v; i++) {
         p[i] = i;
     }
     shuffle(e.begin(), e.end(), rng);
@@ -84,27 +95,28 @@ void shuffleEdges(vector<pair<ll, ll>> &e, ll v)
         x.second = p[x.second];
     }
 }
-void printEdges(vector<pair<ll, ll>>&, ll, bool is_graph = 0);
+
+void print_edges(vector<pair<ll, ll>>&, ll, bool is_graph = 0);
 
 // 1 - 2 - 3 - 4 - 5
-void genRopeGraph(ll v = 5)
+void grope_graph(ll v = 5)
 {
     vector<pair<ll, ll>> edges(v - 1);
     for(int i = 1; i < v; i++) {
         edges[i - 1] = {i, i + 1};
     }
-    shuffleEdges(edges, v);
-    printEdges(edges, v);
+    shuffle_edges(edges, v);
+    print_edges(edges, v);
 }
 
-void genStarGraph(ll v = 5)
+void gstar_graph(ll v = 5)
 {
     vector<pair<ll, ll>> edges(v - 1);
     for(int i = 2; i <= v; i++) {
         edges[i - 2] = {1, i};
     }
-    shuffleEdges(edges, v);
-    printEdges(edges, v);
+    shuffle_edges(edges, v);
+    print_edges(edges, v);
 }
 
 /*
@@ -112,7 +124,7 @@ undirected graph
 total edges : n * (n - 1) / 2
 no self loop
 */
-void genUndirectedGraph(ll v = 5)
+void gundirected_graph(ll v = 5)
 {
     ll mx_edges = v * (v - 1) / 2;
     ll e = rnd(1, mx_edges);
@@ -150,7 +162,7 @@ directed graph
 total edges = n * n - n => n * (n - 1)
 no self edge (i, i)
 */
-void genDirectedGraph(ll v = 5)
+void gdirected_graph(ll v = 5)
 {
     ll mn_edges = v - 1;
     ll mx_edges = v * (v - 1);
@@ -181,7 +193,7 @@ void genDirectedGraph(ll v = 5)
 }
 
 // generate tree + add random edges
-void genConnectedGraph(ll v = 5)
+void gconnected_graph(ll v = 5)
 {
     ll mn_edges = v - 1;
     ll mx_edges = v * (v - 1) / 2;
@@ -204,29 +216,16 @@ void genConnectedGraph(ll v = 5)
     sort(edges.begin(), edges.end());
     edges.erase(unique(edges.begin(), edges.end()), edges.end());
 
-    shuffleEdges(edges, v);
-    printEdges(edges, v);
+    shuffle_edges(edges, v);
+    print_edges(edges, v);
 }
 
-void genTree(ll n = 5)
+void gtree(ll n = 5)
 {
     vector<pair<ll, ll>> edges;
     for(int i = 2; i <= n; ++i) {
         edges.emplace_back(rnd(1, i - 1), i);
     }
-    shuffleEdges(edges, n);
-    printEdges(edges, n, 0);
-}
-
-void rndGraph(ll n = 5) {
-    genConnectedGraph(n);
-    genUndirectedGraph(n);
-    genDirectedGraph(n);
-    genTree(n);
-}
-void rndTree(ll n = 5) {
-    int x = rnd(0, 10);
-    if(x == 0) genRopeGraph(n);
-    else if(x == 1) genStarGraph(n);
-    else genTree(n);
+    shuffle_edges(edges, n);
+    print_edges(edges, n, 0);
 }

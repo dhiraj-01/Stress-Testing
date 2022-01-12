@@ -1,29 +1,26 @@
-#include "./generate testcase.cpp"
-const vector<string> s = {
-    "ABCDEFGDHIJKLMNOPQRSTUVWXYZ",
-    "abcdefghijklmnopqrstuvwxyz",
-    "0123456789",
-    "()"
-};
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long int
+#define endl '\n'
+
+mt19937 rng(std::chrono::steady_clock::now().time_since_epoch().count());
+inline ll rnd(ll l = 0, ll r = 1E9)
+{
+    if(l > r) swap(l, r);
+    return std::uniform_int_distribution<ll>(l, r)(rng);
+    // return std::uniform_real_distribution<long double>(l, r)(rng);
+}
 
 void testcase()
 {
-    ll a = rnd(1, 10);
-    ll b = rnd(1, 10);
-    cout << a << " " << b << endl;
-}
-
-void printEdges(vector<pair<ll, ll>> &e, ll v, bool is_graph)
-{
-    cout << v << " ";
-    if(is_graph) {
-        cout << e.size();
-    }
-    cout << endl;
-    for(auto &X : e) {
-        cout << X.first << " " << X.second << " ";
-        // cout << rnd(1, 5);
-        cout << "\n";
+    ll t = rnd(1, 10);
+    cout << t << endl;
+    while(t--)
+    {
+        ll n = rnd(1, 10);
+        ll m = rnd(1, 10);
+        cout << n << " " << m << endl;
     }
 }
 
@@ -31,11 +28,6 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(0);
-
-    ll t = rnd(1, 4);
-    // t = 1;
-    cout << t << endl;
-    while(t--) {
-        testcase();
-    }
+    testcase();
+    return 0;
 }
